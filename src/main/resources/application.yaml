@@ -1,0 +1,47 @@
+server:
+  port: 30303
+
+#spring:
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/blockchain?createDatabaseIfNotExist=true
+#    username: postgres
+#    password: qwerty1
+#    driver-class-name: org.postgresql.Driver
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+    operationsSorter: method
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    enable:
+      jvm: true
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+      sla:
+        http:
+          server:
+            requests: 100ms,150ms,250ms,500ms,1s
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+sla:
+  interval: month
+  percent: 95
+  duration:
+    user-create-max: 0.3
+    user-delete-max: 0.3
+
